@@ -23,12 +23,12 @@ def extrairReviews(params: dict, limite: int = 1e3):
         resp = requests.get(f'https://store.steampowered.com/appreviews/{app_id}', params=params)
         data = resp.json()
         # Pega as reviews da variável em json
-        reviews = data.get('reviews')
+        reviews_atual = data.get('reviews')
         
-        if not reviews:
+        if not reviews_atual:
             break
 
-        reviews.extend(reviews)
+        reviews.extend(reviews_atual)
 
         # Move para a próxima página
         cursor = data.get('cursor')
@@ -36,6 +36,9 @@ def extrairReviews(params: dict, limite: int = 1e3):
             break
 
         params['cursor'] = cursor
+
+        # Print do total de reviews:
+        print("Total extraído: ", len(reviews))
 
         # Espera para não acharem ser DDOS
         time.sleep(1)
@@ -60,7 +63,6 @@ params = {
     'purchase_type':'all'
 }
 
-# Apesar do limite se 35.000, ele pega muito menos por alguma razão
 limite = 5200
 
 # Positivos
