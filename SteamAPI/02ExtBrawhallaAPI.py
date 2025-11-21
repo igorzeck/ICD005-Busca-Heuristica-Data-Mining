@@ -69,14 +69,18 @@ limite = 5200
 params["review_type"] = 'positive'
 
 print("Extraindo reviews positivas.")
-reviews = extrairReviews(params, limite)
-reviews.to_csv('SteamAPI/brawhalla_pos.csv', index=False)
-print(f"Reviews positivas coletadas: {len(reviews)}.")
+reviews_pos = extrairReviews(params, limite)
+reviews_pos.to_csv('SteamAPI/brawhalla_pos.csv', index=False)
+print(f"Reviews positivas coletadas: {len(reviews_pos)}.")
 
 # Negativos
 params["review_type"] = 'negative'
 
 print("Extraindo reviews negativas.")
-reviews = extrairReviews(params, limite)
-reviews.to_csv('SteamAPI/brawhalla_neg.csv', index=False)
-print(f"Reviews negativas coletadas: {len(reviews)}.")
+reviews_neg = extrairReviews(params, limite)
+reviews_neg.to_csv('SteamAPI/brawhalla_neg.csv', index=False)
+print(f"Reviews negativas coletadas: {len(reviews_neg)}.")
+
+# Se quiser juntar as reviews
+# df_final = pd.merge(reviews_pos[0:5200], reviews_neg[0:5200], how = "outer")
+# df_final.to_csv("brawhalla.csv", index = False)
